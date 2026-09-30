@@ -1,0 +1,12 @@
+---
+import { spawnSync } from 'node:child_process';
+
+const { entry } = Astro.locals.starlightRoute;
+const author = entry.filePath
+    ? spawnSync('git', ['log', '-1', '--format=%an', '--', entry.filePath], {
+          encoding: 'utf8',
+      }).stdout?.trim()
+    : undefined;
+---
+
+<p class="last-edited">Last edited by: <span>{author || '—'}</span></p>

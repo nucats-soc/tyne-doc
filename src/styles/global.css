@@ -1,0 +1,283 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('/Outfit-VariableFont_wght.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 100 900;
+}
+
+@theme {
+    /* Starlight switches navigation at 50rem. */
+    --breakpoint-docs: 50rem;
+    --font-sans: 'Outfit', sans-serif;
+    --color-accent-200: #c6dcf4;
+    --color-accent-600: #1c72c1;
+    --color-accent-900: #14416d;
+    --color-accent-950: #112a44;
+}
+
+:root {
+    --docs-container-width: 56.25rem;
+    --docs-gutter: 1rem;
+    --docs-container-offset: max(var(--docs-gutter), calc((100% - var(--docs-container-width)) / 2));
+    --sl-nav-height: 7rem;
+    --sl-mobile-toc-height: 3rem;
+    --sl-sidebar-width: 15rem;
+    --sl-menu-button-size: 3rem;
+    --docs-surface: var(--color-zinc-900);
+    --docs-surface-raised: var(--color-zinc-800);
+    --docs-search-surface: var(--docs-surface-raised);
+    --docs-surface-hover: var(--color-zinc-700);
+    --docs-dropdown-surface: var(--color-zinc-700);
+    --docs-dropdown-hover: var(--color-zinc-600);
+    --sl-color-bg: var(--docs-surface);
+    --sl-color-bg-nav: var(--docs-surface);
+    --sl-color-bg-sidebar: var(--docs-surface);
+    --sl-color-bg-inline-code: var(--docs-surface-raised);
+    --sl-shadow-sm: none;
+    --sl-shadow-md: none;
+    --sl-shadow-lg: none;
+
+    @variant sm {
+        --docs-gutter: 2rem;
+    }
+}
+
+:root[data-theme='light'] {
+    --docs-surface: var(--color-zinc-100);
+    --docs-surface-raised: var(--color-zinc-200);
+    --docs-surface-hover: var(--color-zinc-300);
+    --docs-dropdown-surface: var(--color-zinc-200);
+    --docs-dropdown-hover: var(--color-zinc-300);
+}
+
+.page {
+    @apply w-[calc(100%_-_2_*_var(--docs-gutter))] max-w-(--docs-container-width) mx-auto;
+}
+
+.page > header.header {
+    @apply inset-x-0 w-full py-8 px-[calc(var(--docs-gutter)_+_0.5rem)];
+}
+
+.page > header > .header {
+    @apply flex max-w-(--docs-container-width) mx-auto gap-4 docs:grid docs:grid-cols-[1fr_minmax(0,min(22rem,calc(100%_-_30rem)))_1fr];
+}
+
+.page > header > .header > .right-group {
+    @apply docs:justify-self-end;
+}
+
+.page > header > .header > div:nth-child(2) {
+    @apply docs:min-w-0;
+}
+
+[data-has-sidebar] .page > header.header {
+    @apply max-docs:pe-[calc(var(--docs-gutter)_+_4.5rem)];
+}
+
+.site-title {
+    @apply min-w-0 items-center gap-4 whitespace-nowrap text-(--sl-color-white) text-[1.5rem] font-extrabold no-underline;
+}
+
+.site-title-text {
+    @apply flex flex-col leading-none;
+}
+
+.site-title-subtitle {
+    @apply text-sm leading-none font-medium text-(--sl-color-gray-2);
+}
+
+.site-title img {
+    @apply h-12 w-auto shrink-0;
+}
+
+:root[data-theme='light'] .site-title img {
+    @apply invert;
+}
+
+.header,
+.sidebar-pane,
+.content-panel,
+.right-sidebar,
+.social-icons,
+.mobile-preferences,
+.sidebar-content ul ul li,
+mobile-starlight-toc nav,
+mobile-starlight-toc summary {
+    @apply border-0;
+}
+
+.content-panel {
+    @apply px-0;
+}
+
+.sidebar-pane {
+    @apply bg-(--docs-surface) top-(--sl-nav-height) bottom-0 inset-x-(--docs-container-offset) w-auto docs:bg-transparent docs:start-auto docs:w-(--sl-sidebar-width);
+}
+
+.main-frame {
+    @apply docs:ps-0 docs:pe-(--sl-sidebar-width);
+}
+
+.sidebar-content {
+    @apply p-0;
+}
+
+.right-sidebar-container {
+    @apply static w-auto;
+}
+
+.right-sidebar {
+    @apply static h-auto pt-0;
+}
+
+.right-sidebar-panel {
+    @apply hidden;
+}
+
+.right-sidebar > div:has(mobile-starlight-toc) {
+    @apply block;
+}
+
+[data-has-sidebar][data-has-toc] .main-pane {
+    @apply w-full;
+}
+
+.pagination-links a,
+.card,
+.sl-link-card,
+.sl-markdown-content :is(pre, blockquote, details) {
+    @apply border-0 rounded-xl bg-(--docs-surface-raised);
+}
+
+.pagination-links a:hover,
+.sl-link-card:hover,
+site-search button[data-open-modal]:hover {
+    @apply bg-(--docs-surface-hover);
+}
+
+.sl-markdown-content :is(blockquote, details) {
+    @apply py-4 px-5;
+}
+
+.starlight-aside {
+    @apply border-0 rounded-xl;
+}
+
+footer .meta a {
+    @apply items-center gap-2 rounded-full bg-(--docs-surface-raised) px-4 py-2 text-(--sl-color-text) no-underline transition-colors;
+}
+
+footer .meta a:hover {
+    @apply bg-(--docs-surface-hover) text-(--sl-color-white);
+}
+
+.last-edited {
+    @apply self-center;
+}
+
+site-search button[data-open-modal] {
+    @apply border-0 rounded-full bg-(--docs-search-surface) docs:px-4;
+
+    @variant max-docs {
+        @apply size-12 items-center justify-center rounded-lg bg-transparent p-2 text-(--sl-color-white) transition-colors duration-200;
+    }
+}
+
+site-search button[data-open-modal]:hover {
+    @apply max-docs:bg-white/10;
+}
+
+site-search dialog {
+    @apply border-0 rounded-xl bg-(--docs-search-surface);
+}
+
+site-search kbd {
+    @apply bg-(--docs-surface-raised);
+}
+
+site-search #starlight__search {
+    --pagefind-ui-background: var(--docs-surface);
+    --pagefind-ui-border-width: 0px;
+}
+
+.sl-menu-button {
+    @apply size-12 items-center justify-center rounded-lg bg-transparent p-2 text-(--sl-color-white) end-[calc(var(--docs-gutter)_+_0.5rem)] transition-colors duration-200;
+}
+
+.sl-menu-button:hover {
+    @apply bg-white/10;
+}
+
+.sl-menu-button > svg,
+site-search button[data-open-modal] > svg,
+mobile-starlight-toc .caret {
+    @apply shrink-0;
+}
+
+.sl-menu-button > svg {
+    @apply size-8;
+}
+
+site-search button[data-open-modal] > svg {
+    @apply max-docs:size-6 max-docs:stroke-current max-docs:stroke-[0.5];
+}
+
+mobile-starlight-toc {
+    nav {
+        @apply inset-x-(--docs-container-offset) docs:end-[calc(var(--docs-container-offset)_+_var(--sl-sidebar-width))];
+    }
+
+    summary {
+        @apply ps-0;
+    }
+
+    details {
+        @apply relative;
+    }
+
+    .toggle {
+        @apply border-0 rounded-xl bg-(--docs-surface-raised) ps-3 pe-2 py-2 text-(--sl-color-white) transition-colors duration-200;
+    }
+
+    .toggle:hover {
+        @apply bg-(--docs-dropdown-hover);
+    }
+
+    .caret {
+        @apply size-4 motion-reduce:transition-none;
+    }
+
+    .dropdown {
+        @apply border-0 absolute top-full start-0 z-40 mt-4 w-max min-w-56 max-w-full origin-top rounded-md bg-(--docs-dropdown-surface) p-6 transition-[opacity,scale] duration-200 motion-reduce:transition-none;
+    }
+
+    details[open]::before {
+        content: '';
+        @apply pointer-events-none absolute top-full start-14 z-50 mt-2 size-5 rotate-45 bg-(--docs-dropdown-surface);
+    }
+
+    .dropdown a {
+        @apply border-0 rounded-lg py-2 text-(--sl-color-text) transition-colors duration-200;
+    }
+
+    .dropdown a:hover {
+        @apply bg-(--docs-dropdown-hover) text-(--sl-color-white);
+    }
+
+    .dropdown a[aria-current='true'] {
+        @apply text-(--sl-color-text-accent);
+    }
+
+}
+
+@starting-style {
+    mobile-starlight-toc details[open] .dropdown {
+        @apply opacity-0 scale-95;
+    }
+}

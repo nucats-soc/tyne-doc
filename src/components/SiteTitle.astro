@@ -1,0 +1,13 @@
+---
+import logo from '../assets/nucats.svg';
+
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+    <img src={logo.src} width={logo.width} height={logo.height} alt="" />
+    <span class="site-title-text" translate="no">
+        <span>NUCATS</span>
+        <span class="site-title-subtitle">Knowledge Base</span>
+    </span>
+</a>
