@@ -2,11 +2,19 @@
 import { spawnSync } from 'node:child_process';
 
 const { entry } = Astro.locals.starlightRoute;
-const author = entry.filePath
-    ? spawnSync('git', ['log', '-1', '--format=%an', '--', entry.filePath], {
+const commit = entry.filePath
+    ? spawnSync('git', ['log', '-1', '--format=%H%n%an', '--', entry.filePath], {
           encoding: 'utf8',
       }).stdout?.trim()
     : undefined;
+const [hash, author] = commit?.split('\n') ?? [];
 ---
 
-<p class="last-edited">Last edited by: <span>{author || '—'}</span></p>
+<p class="last-edited">
+    Last edited by: <span>{author || '—'}</span>{' '}
+    {hash && (
+        <a href={`https://github.com/nucats-soc/tyne-doc/commit/${hash}`} aria-label={`View commit ${hash} on GitHub`}>
+            <code>{hash.slice(0, 7)}</code>
+        </a>
+    )}
+</p>

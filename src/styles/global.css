@@ -169,11 +169,11 @@ site-search button[data-open-modal]:hover {
     @apply border-0 rounded-xl;
 }
 
-footer .meta a {
+footer .meta > a {
     @apply items-center gap-2 rounded-full bg-(--docs-surface-raised) px-4 py-2 text-(--sl-color-text) no-underline transition-colors;
 }
 
-footer .meta a:hover {
+footer .meta > a:hover {
     @apply bg-(--docs-surface-hover) text-(--sl-color-white);
 }
 
