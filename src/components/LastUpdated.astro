@@ -11,7 +11,7 @@ const [hash, author] = commit?.split('\n') ?? [];
 ---
 
 <p class="last-edited">
-    Last edited by: <span>{author || '—'}</span>{' '}
+    Last edited by: <span>{author || '—'}</span>{' in commit '}
     {hash && (
         <a href={`https://github.com/nucats-soc/tyne-doc/commit/${hash}`} aria-label={`View commit ${hash} on GitHub`}>
             <code>{hash.slice(0, 7)}</code>
