@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   redirects: {
-    '/': '/guides/example'
+    '/': '/welcome',
   },
 
   integrations: [
@@ -32,9 +32,7 @@ export default defineConfig({
           sidebar: [
               {
                   label: 'Guides',
-                  items: [
-                      { label: 'Example Guide', slug: 'guides/example' },
-                  ],
+                  items: [{ autogenerate: { directory: 'guides' } }],
               },
               {
                   label: 'Reference',
